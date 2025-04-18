@@ -2,8 +2,7 @@ from django.contrib.auth.models import AbstractUser
 from django.core.exceptions import ValidationError
 from django.db import models
 from django.db.models import UniqueConstraint
-
-import settings
+from django.conf import settings
 
 
 class Genre(models.Model):
@@ -97,7 +96,8 @@ class Ticket(models.Model):
                 {
                     "row": [
                         "row number must be in available range: "
-                        "(1, rows): (1, 10)"
+                        f"(1, rows): "
+                        f"(1, {self.movie_session.cinema_hall.rows})"
                     ]
                 }
             )
@@ -106,7 +106,8 @@ class Ticket(models.Model):
                 {
                     "seat":
                         ["seat number must be in available range: "
-                         "(1, seats_in_row): (1, 12)"
+                         f"(1, seats_in_row): "
+                         f"(1, {self.movie_session.cinema_hall.seats_in_row})"
                          ]
                 }
             )

@@ -19,12 +19,13 @@ def create_order(
     if date:
         Order.objects.filter(id=order.id).update(created_at=date)
 
-    [Ticket.objects.create(
-        order=order,
-        movie_session_id=ticket["movie_session"],
-        row=ticket["row"],
-        seat=ticket["seat"],
-    ) for ticket in tickets]
+    for ticket in tickets:
+        Ticket.objects.create(
+            order=order,
+            movie_session_id=ticket["movie_session"],
+            row=ticket["row"],
+            seat=ticket["seat"],
+        )
 
     return order
 
